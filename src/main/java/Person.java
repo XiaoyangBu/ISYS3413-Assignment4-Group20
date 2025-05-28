@@ -4,6 +4,7 @@ import java.io.*;
 import java.nio.file.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
 public class Person {
 
@@ -12,10 +13,9 @@ public class Person {
     private String lastName;
     private String address;
     private String birthdate;
-    private HashMap<Date, Integer> demeritPoints; // A variable that holds the demerit points with the offense day
+    private int demeritPoints; // A variable that holds the demerit points with the offense day
     private boolean isSuspended;
-    private Map<LocalDate, Integer> offenseHistory = new HashMap<>(); //Record all offence history, in order to check condition3 (2years) of addDemeritPoints() function
-
+    private Map<LocalDate, Integer> offenseHistory = new HashMap<>();
 
 
     public boolean addPerson() {
@@ -62,7 +62,7 @@ public class Person {
      */
     public String addDemeritPoints(String offenseDate, int points) {
 
-        //TODO: This method adds demerit points for a given person in a TXT file.
+        //This method adds demerit points for a given person in a TXT file.
         //Condition 1:  The format of the date of the offense should follow the following format: DD-MM-YYYY. Example: 15-11-1990
         //Condition 2:  The demerit points must be a whole number between 1-6
         //Condition 3:  If the person is under 21, the isSuspended variable should be set to true if the total demerit points within two years exceed 6.
@@ -84,9 +84,6 @@ public class Person {
         if (points < 1 || points > 6) {
             return "Failed"; //Demerit point is illegal, must be between 1 - 6
         }
-
-        // Get the total demerit points of the driver
-        int totalPoints = this.demeritPoints + points;
 
         // Update offences history
         if (offenseHistory == null) offenseHistory = new HashMap<>(); // Prevent if offenseHistory is null 

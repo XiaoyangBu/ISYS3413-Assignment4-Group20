@@ -1,9 +1,14 @@
-import java.util.HashMap;
-import java.util.Date;
-import java.io.*;
-import java.nio.file.*;
-import java.time.*;
+package group20;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Person {

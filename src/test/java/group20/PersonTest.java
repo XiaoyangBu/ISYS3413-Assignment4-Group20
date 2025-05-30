@@ -100,7 +100,7 @@ public class PersonTest {
     // Test Cases for addDemeritPoints() function
     @Test
     void testAddDemeritPoints_AgeUnder21_Over6Points() {
-        // Test Case 1:
+        // Test Case 1: Check the function with valid input, age < 21, totalValidDemeritPoints > 6
         
         // Create and add a valid person
         Person p = new Person();
@@ -125,7 +125,7 @@ public class PersonTest {
 
     @Test
     void testAddDemeritPoints_Age21OrOver_Over12Points() {
-        // Test Case 2: 
+        // Test Case 2: Check the function with valid input, age >= 21, totalValidDemeritPoints > 12
 
         // Create and add a valid person
         Person p = new Person();
@@ -150,7 +150,7 @@ public class PersonTest {
 
     @Test
     void testAddDemeritPoints_AgeUnder21_Under6Points() {
-        // Test Case 3: 
+        // Test Case 3: Check the function with valid input, age < 21, totalValidDemeritPoints <= 6
 
         // Create and add a valid person
         Person p = new Person();
@@ -175,7 +175,7 @@ public class PersonTest {
 
     @Test
     void testAddDemeritPoints_Age21OrOver_Under12Points() {
-        // Test Case 4: 
+        // Test Case 4: Check the function with valid input, age >= 21, totalValidDemeritPoints <= 12
 
         // Create and add a valid person
         Person p = new Person();
@@ -200,7 +200,7 @@ public class PersonTest {
 
     @Test
     void testAddDemeritPoints_InvalidDateFormat() {
-        // Test Case 5:
+        // Test Case 5: Check the function with invalid date format
 
         // Create and add a valid person
         Person p = new Person();
@@ -219,7 +219,7 @@ public class PersonTest {
 
     @Test
     void testAddDemeritPoints_InvalidPoints() {
-        // Test Case 6:
+        // Test Case 6: Check the function with invalid demerit points 
 
         // Create and add a valid person
         Person p = new Person();

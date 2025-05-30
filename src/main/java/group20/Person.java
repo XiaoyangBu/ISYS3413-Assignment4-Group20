@@ -24,7 +24,12 @@ public class Person {
 
     // Constructor 
     Person () {
-
+        personID = "";
+        firstName = "";
+        lastName = "";
+        address = "";
+        birthdate ="";
+        isSuspended = false;
     }
 
     public boolean addPerson() {

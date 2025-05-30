@@ -22,6 +22,10 @@ public class Person {
     private boolean isSuspended;
     private Map<LocalDate, Integer> offenseHistory = new HashMap<>();
 
+    // Constructor 
+    Person () {
+
+    }
 
     public boolean addPerson() {
         return true;
@@ -161,4 +165,40 @@ public class Person {
         // personID|firstName|lastName|address|birthdate|demeritPoints|isSuspended
         return personID + "|" + firstName + "|" + lastName + "|" + address + "|" + birthdate + "|" + demeritPoints + "|" + isSuspended + "\n";
     }
+
+    // Setter function for birthdate
+    public void setBirthDate(String date) {
+        birthdate = date;
+    }
+
+    // Sette function for offenseHistory
+    public void setOffenseHistory(Map<LocalDate, Integer> offenseHistory) {
+        this.offenseHistory = offenseHistory;
+    }
+
+    // Getter function for isSuspended
+    public boolean getIsSuspended() {
+        return isSuspended;
+    }
+
+    // Calculates the total valid demerit points within two years 
+    public int calculateTotalValidDemeritPoints() {
+        if (offenseHistory == null || offenseHistory.isEmpty()) {
+            return 0;
+        }
+    
+        LocalDate now = LocalDate.now();
+        LocalDate twoYearsAgo = now.minusYears(2);
+    
+        int total = 0;
+        for (Map.Entry<LocalDate, Integer> entry : offenseHistory.entrySet()) {
+            LocalDate offenseDate = entry.getKey();
+            if ((offenseDate.isEqual(now) || offenseDate.isBefore(now)) && offenseDate.isAfter(twoYearsAgo)) {
+                total += entry.getValue();
+            }
+        }
+    
+        return total;
+    }
+    
 }

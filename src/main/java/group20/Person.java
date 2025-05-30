@@ -32,7 +32,12 @@ public class Person {
         isSuspended = false;
     }
 
-    public boolean addPerson() {
+    public boolean addPerson(String firstName, String lastName, String id, String adress, String date) {
+        personID = "";
+        firstName = "";
+        lastName = "";
+        address = "";
+        birthdate ="";
         return true;
     //TODO: This method adds information about a person to a TXT file.
     //Condition 1: PersonID should be exactly 10 characters long;

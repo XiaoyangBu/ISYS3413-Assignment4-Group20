@@ -44,6 +44,7 @@ public class Person {
     //Instruction: If the Person's information meets the above conditions and any other conditions you may want to consider,
     //the information should be inserted into a TXT file, and the addPerson function should return true.
     //Otherwise, the information should not be inserted into the TXT file, and the addPerson function should return false.
+
     }
 
 
@@ -187,23 +188,21 @@ public class Person {
     }
 
     // Calculates the total valid demerit points within two years 
-    public int calculateTotalValidDemeritPoints() {
-        if (offenseHistory == null || offenseHistory.isEmpty()) {
-            return 0;
-        }
+    // NOTE: For testing purpose
+    public int calculateTotalValidDemeritPoints(LocalDate referenceDate) {
+        if (offenseHistory == null || offenseHistory.isEmpty()) return 0;
     
-        LocalDate now = LocalDate.now();
-        LocalDate twoYearsAgo = now.minusYears(2);
-    
+        LocalDate twoYearsAgo = referenceDate.minusYears(2);
         int total = 0;
         for (Map.Entry<LocalDate, Integer> entry : offenseHistory.entrySet()) {
             LocalDate offenseDate = entry.getKey();
-            if ((offenseDate.isEqual(now) || offenseDate.isBefore(now)) && offenseDate.isAfter(twoYearsAgo)) {
+            if ((offenseDate.isEqual(referenceDate) || offenseDate.isBefore(referenceDate)) &&
+                offenseDate.isAfter(twoYearsAgo)) {
                 total += entry.getValue();
             }
         }
-    
         return total;
     }
+    
     
 }

@@ -33,7 +33,9 @@ public class Person {
     }
 
     public boolean addPerson(String firstName, String lastName, String id, String adress, String date) {
-
+        if(!isIdValid(id)){
+            return false;
+        }
 
         this.personID = id;
         this.firstName = firstName;
@@ -55,7 +57,49 @@ public class Person {
     }
 
     private boolean isIdValid(String id){
-        return false;
+        //Count that keeps track of special characters
+        int specialCount  = 0;
+        //If statement that checks if the PersonID is 10 characters long, if not return False
+        if(id.length() != 10){
+            return false;
+        }
+        //for loop that iterates the first two characters of the ID
+        for(int i = 0; i < 2; i++){
+            char checkNum;
+            checkNum = id.charAt(i);
+            //If statement that verifies if the either of the first two digits contains numbers that are not 0 or 1, if so return False
+            //Hence meaning that only the digits between 2 and 9 are accepted
+            if(!Character.isDigit(checkNum) || checkNum == '0' || checkNum == '1'){
+                return false;
+            }
+        //For loop that checks the characters between 2 and 7
+        for(int j = 2; j <= 7; i++){
+            char checkSpecial;
+            checkSpecial = id.charAt(j);
+            //We willt then check if any of the characters between that range are special, if so we will increment the count
+            if(!Character.isLetterOrDigit(checkSpecial)){
+                specialCount++;
+            }
+        }
+        //If statement that checks if there contained at least two special characters within the required range
+        //If not then return false
+        if(specialCount < 2){
+            return false;
+        }
+        //For loop that checks the last two characters within the ID
+        for(int m = 8; m < 10; m++ ){
+            char charac;
+            charac  = id.charAt(m);
+            //We check if any of the last two characters are not uppercase, if so return false
+            if(!Character.isUpperCase(charac)){
+                return false;
+            }
+        }
+        }
+
+
+
+        return true;
     }
 
 

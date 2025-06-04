@@ -35,14 +35,14 @@ public class RoadRegistry {
                 System.out.print("Enter Birthdate (DD-MM-YYYY): ");
                 String birthdate = scanner.nextLine();
 
-                /* ADD addPerson() HERE 
-                boolean personAdded = person.addPerson();
+                
+                boolean personAdded = person.addPerson(firstName, lastName, personID, address, birthdate);
                 if (personAdded) {
                     System.out.println("Person added successfully.");
                 } else {
                     System.out.println("Failed to add person.");
                 }
-                */
+                
             }
             else if (choice.equals("2")) {  // ADD updatePersonalDetails function and input intake here
                 System.out.println("Update Person details");

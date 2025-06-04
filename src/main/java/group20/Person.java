@@ -137,7 +137,7 @@ public class Person {
                 return false;
             }
         }
-        }
+    }
 
 
 
@@ -177,22 +177,90 @@ public class Person {
     }
 
 
-    public boolean updatePersonalDetails() {
-        return true;
+    public boolean updatePersonalDetails(String newID, String newFirstName, String newLastName, String newAddress, String newBirthdate) {
+        // get current age using existing birthdate
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate currentBirth = LocalDate.parse(this.birthdate, dtf);
+        int currentAge = Period.between(currentBirth, LocalDate.now()).getYears();
 
-        //TODO: This method allows updating a given person's ID, firstName, lastName, address and birthday in a TXT file.
-        //Changing personal details will not affect their demerit points or the suspension status.
-        // All relevant conditions discussed for the addPerson function also need to be considered and checked in the updatPerson function.
-        //Condition 1: If a person is under 18, their address cannot be changed.
-        //Condition 2: If a person's birthday is going to be changed, then no other personal detail (i.e, person's ID, firstName, lastName, address) can be changed.
-        //Condition 3: If the first character/digit of a person's ID  is an even number, then their ID cannot be changed.
-        //Instruction: If the Person's updated information meets the above conditions and any other conditions you may want to consider,
-        //the Person's information should be updated in the TXT file with the updated information, and the updatePersonalDetails function should return true.
-        //Otherwise, the Person's updated information should not be updated in the TXT file, and the updatePersonalDetails function should return false.
+        // condition 1: if user is under 18, address cannot be changed
+        if (currentAge < 18 && !newAddress.equals(this.address)) {
+            return false;
+        }
 
+        // condition 2: if birthday is changing, no other fields can change
+        if (!newBirthdate.equals(this.birthdate)) {
+            if (!newID.equals(this.personID) || 
+                !newFirstName.equals(this.firstName) || 
+                !newLastName.equals(this.lastName) || 
+                !newAddress.equals(this.address)) {
+                return false;
+            }
+            // validate new birthdate
+            if (!isDateValid(newBirthdate)) {
+                return false;
+            }
+        }
+
+        // condition 3: f first digit of ID is even, ID cannot be changed
+        if (!newID.equals(this.personID)) {
+            char firstChar = this.personID.charAt(0);
+            if (Character.isDigit(firstChar) && (firstChar - '0') % 2 == 0) {
+                return false;
+            }
+            // validate new ID
+            if (!isIdValid(newID)) {
+                return false;
+            }
+        }
+
+        // validate new address if it's changing
+        if (!newAddress.equals(this.address) && !isAddressValid(newAddress)) {
+            return false;
+        }
+
+        try {
+            // read lines from file
+            Path filePath = Paths.get("person_data.txt");
+            StringBuilder newContent = new StringBuilder();
+            boolean found = false;
+            
+            for (String line : Files.readAllLines(filePath)) {
+                if (line.startsWith(this.personID + "|")) {
+                    // update person's details while preserving demerit points and suspension status
+                    String[] parts = line.split("\\|");
+                    String updatedLine = String.format("%s|%s|%s|%s|%s|%s|%s\n",
+                        newID, newFirstName, newLastName, newAddress, newBirthdate,
+                        parts.length > 5 ? parts[5] : "0",  // preserve demerit points
+                        parts.length > 6 ? parts[6] : "false" // preserve suspension status
+                    );
+                    newContent.append(updatedLine);
+                    found = true;
+                } else {
+                    newContent.append(line).append("\n");
+                }
+            }
+
+            if (!found) {
+                return false;
+            }
+
+            // write new content back to file
+            Files.writeString(filePath, newContent.toString());
+
+            // update instance variables
+            this.personID = newID;
+            this.firstName = newFirstName;
+            this.lastName = newLastName;
+            this.address = newAddress;
+            this.birthdate = newBirthdate;
+
+            return true;
+
+        } catch (IOException e) {
+            return false;
+        }
     }
-
-
 
 
 

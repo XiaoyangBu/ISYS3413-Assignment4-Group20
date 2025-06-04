@@ -166,6 +166,10 @@ public class Person {
         //Checks if the String of date of birth matches with the current data format, if so return true, if not return false
         try{
              dob = LocalDate.parse(date, dtFormat);
+             int year = dob.getYear();
+             if(year < 1920 || year > 2020){
+                return false;
+             }
              return true;
         } catch(Exception e){
             return false;

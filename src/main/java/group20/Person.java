@@ -33,6 +33,8 @@ public class Person {
     }
 
     public boolean addPerson(String firstName, String lastName, String id, String adress, String date) {
+
+
         this.personID = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -50,6 +52,10 @@ public class Person {
     //the information should be inserted into a TXT file, and the addPerson function should return true.
     //Otherwise, the information should not be inserted into the TXT file, and the addPerson function should return false.
 
+    }
+
+    private boolean isIdValid(String id){
+        return false;
     }
 
 

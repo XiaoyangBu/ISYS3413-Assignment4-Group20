@@ -36,6 +36,9 @@ public class Person {
         if(!isIdValid(id)){
             return false;
         }
+        if(!isAddressValid(adress)){
+            return false;
+        }
 
         this.personID = id;
         this.firstName = firstName;
@@ -103,7 +106,13 @@ public class Person {
     }
 
     private boolean isAddressValid(String address){
-        return false;
+        //Align with condition and split every |, in order to achieve the state
+        String[] split = address.split("\\|");
+        //Checks if the state is Victoria, if not return false
+        if(!split[3].toUpperCase().equals("VICTORIA")){
+            return false;
+        }
+        return true;
     }
 
 

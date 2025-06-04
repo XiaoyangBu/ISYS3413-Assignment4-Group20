@@ -40,6 +40,10 @@ public class Person {
             return false;
         }
 
+        if(!isDateValid(date)){
+            return false;
+        }
+
         this.personID = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -113,6 +117,19 @@ public class Person {
             return false;
         }
         return true;
+    }
+
+    private boolean isDateValid(String date){
+        //Assigns format of Date to dd-MM-yyyy to match with the condition
+        DateTimeFormatter dtFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate dob;
+        //Checks if the String of date of birth matches with the current data format, if so return true, if not return false
+        try{
+             dob = LocalDate.parse(date, dtFormat);
+             return true;
+        } catch(Exception e){
+            return false;
+        }
     }
 
 

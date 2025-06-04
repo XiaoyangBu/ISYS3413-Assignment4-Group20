@@ -115,7 +115,7 @@ public class Person {
                 return false;
             }
         //For loop that checks the characters between 2 and 7
-        for(int j = 2; j <= 7; i++){
+        for(int j = 2; j <= 7; j++){
             char checkSpecial;
             checkSpecial = id.charAt(j);
             //We willt then check if any of the characters between that range are special, if so we will increment the count

@@ -2,6 +2,7 @@ package group20;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -33,22 +34,56 @@ public class Person {
     }
 
     public boolean addPerson(String firstName, String lastName, String id, String adress, String date) {
+        //Checks if the id is Valid and meets conditions
         if(!isIdValid(id)){
             return false;
         }
+        //Checks if the address is Valid and meets conditions
         if(!isAddressValid(adress)){
             return false;
         }
-
+        //Checks if the date is Valid and meets conditions
         if(!isDateValid(date)){
             return false;
         }
-
+        //If all conditions are passed we will then
+        //Use parameters in order to fill in variables
         this.personID = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = adress;
         this.birthdate = date;
+
+        //Creates a new file called person_data.txt
+        //Try is used in order to ctach any errors when creating file
+        try {
+            File personDetails = new File("person_data.txt");
+            //If statement that checks if the file name doesn't exist and therefore isn't created
+            //If it hasn't create file with name and alert user
+            //If not then alert user that the file already exists
+            if(personDetails.createNewFile()){
+                System.out.println("New file created:" + personDetails.getName());
+            } else{
+                System.out.println("File exists:" + personDetails.getName());
+            } 
+        } catch(IOException e){
+                System.out.println("An error occured creating the file.");
+                e.printStackTrace();
+            }
+        //Use the try and catch again for writing the file
+        try{
+            //Append the person_data.txt file
+            FileWriter myWriter = new FileWriter("person_data.txt", true);
+            //We will then format the line of personal information, adding a new line after each submission
+            myWriter.write(this.personID + "|" + this.firstName + "|" + this.lastName + "|" + this.address + "|" + this.birthdate + "\n");
+            myWriter.close();
+            //Will send a confirmation message if the file has been successfully written to
+            System.out.println("Added person information to file.");
+        } catch(IOException e){
+            //Will send an error message if the file didn't succeed when writing to it
+            System.out.println("An error occured when writing to the file");
+            e.printStackTrace();
+        }
         return true;
     //TODO: This method adds information about a person to a TXT file.
     //Condition 1: PersonID should be exactly 10 characters long;

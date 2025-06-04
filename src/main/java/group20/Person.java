@@ -147,6 +147,11 @@ public class Person {
     private boolean isAddressValid(String address){
         //Align with condition and split every |, in order to achieve the state
         String[] split = address.split("\\|");
+
+        //Check if there is only 5 splits
+        if(split.length != 5){
+            return false;
+        }
         //Checks if the state is Victoria, if not return false
         if(!split[3].toUpperCase().equals("VICTORIA")){
             return false;

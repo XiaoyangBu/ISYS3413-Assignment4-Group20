@@ -33,11 +33,11 @@ public class Person {
     }
 
     public boolean addPerson(String firstName, String lastName, String id, String adress, String date) {
-        personID = "";
-        firstName = "";
-        lastName = "";
-        address = "";
-        birthdate ="";
+        this.personID = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = adress;
+        this.birthdate = date;
         return true;
     //TODO: This method adds information about a person to a TXT file.
     //Condition 1: PersonID should be exactly 10 characters long;

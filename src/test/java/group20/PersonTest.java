@@ -91,11 +91,95 @@ public class PersonTest {
         assertFalse(r1);
         assertFalse(r2);
     }
-    
-    // Test Cases for updatePersonalDetails() function
 
+    /* 
+    *   Test Cases for updatePersonalDetails() function 
+    */
+   
+    @Test
+    void testValidUpdateForAdult() {
+        // Test Case 1: valid update for an adult
+        Person p = new Person();
+        p.addPerson("John", "Doe", "35*dFt_yKB", "10|High Street|Melbourne|Victoria|Australia", "15-05-1990");
+        
+        boolean result = p.updatePersonalDetails(
+            "37*dFt_yKB",  // new ID
+            "John",        // same first name
+            "Smith",       // new last name
+            "20|Park Road|Melbourne|Victoria|Australia", // new address
+            "15-05-1990"   // same birthdate
+        );
+        
+        assertTrue(result);
+    }
 
+    @Test
+    void testInvalidUpdateForMinorAddressChange() {
+        // Test Case 2: invalid update for a minor trying to change address
+        Person p = new Person();
+        p.addPerson("Jane", "Smith", "35*dFt_yKB", "10|High Street|Melbourne|Victoria|Australia", "15-05-2010");
+        
+        boolean result = p.updatePersonalDetails(
+            "35*dFt_yKB",  // same ID
+            "Jane",        // same first name
+            "Smith",       // same last name
+            "20|Park Road|Melbourne|Victoria|Australia", // trying to change address
+            "15-05-2010"   // same birthdate
+        );
+        
+        assertFalse(result);
+    }
 
+    @Test
+    void testInvalidChangingBirthdayAndOtherDetails() {
+        // Test Case 3: invalid update - changing birthday and other details
+        Person p = new Person();
+        p.addPerson("Bob", "Brown", "35*dFt_yKB", "10|High Street|Melbourne|Victoria|Australia", "15-05-1990");
+        
+        boolean result = p.updatePersonalDetails(
+            "37*dFt_yKB",  // trying to change ID
+            "Bobby",       // trying to change first name
+            "Brown",       // same last name
+            "10|High Street|Melbourne|Victoria|Australia", // same address
+            "16-05-1990"   // trying to change birthdate
+        );
+        
+        assertFalse(result);
+    }
+
+    @Test
+    void testInvalidUpdateEvenDigitIdChange() {
+        // Test Case 4: invalid update - trying to change personID with even digit
+        Person p = new Person();
+        p.addPerson("Alice", "Wilson", "24*dFt_yKB", "10|High Street|Melbourne|Victoria|Australia", "15-05-1990");
+        
+        boolean result = p.updatePersonalDetails(
+            "35*dFt_yKB",  // trying to change ID when first digit is even
+            "Alice",       // same first name
+            "Wilson",      // same last name
+            "10|High Street|Melbourne|Victoria|Australia", // same address
+            "15-05-1990"   // same birthdate
+        );
+        
+        assertFalse(result);
+    }
+
+    @Test
+    void testValidUpdateBirthday() {
+        // Test Case 5: valid update - changing birthday for an adult
+        Person p = new Person();
+        p.addPerson("Tom", "Jones", "35*dFt_yKB", "10|High Street|Melbourne|Victoria|Australia", "15-05-1990");
+        
+        boolean result = p.updatePersonalDetails(
+            "35*dFt_yKB",  // same ID
+            "Tom",         // same first name
+            "Jones",       // same last name
+            "10|High Street|Melbourne|Victoria|Australia", // same address
+            "16-05-1990"   // changing only birthdate
+        );
+        
+        assertTrue(result);
+    }
 
     // Test Cases for addDemeritPoints() function
     @Test

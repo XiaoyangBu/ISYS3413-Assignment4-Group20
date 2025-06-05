@@ -75,7 +75,11 @@ public class Person {
             //Append the person_data.txt file
             FileWriter myWriter = new FileWriter("person_data.txt", true);
             //We will then format the line of personal information, adding a new line after each submission
-            myWriter.write(this.personID + "|" + this.firstName + "|" + this.lastName + "|" + this.address + "|" + this.birthdate + "\n");
+            String[] addressParts = adress.split("\\|");
+            myWriter.write(this.personID + "|" + this.firstName + "|" + this.lastName + "|"
+                + addressParts[0] + "|" + addressParts[1] + "|" + addressParts[2] + "|" + addressParts[3] + "|" + addressParts[4] + "|"
+                + this.birthdate + "|0|false\n");
+            // myWriter.write(this.personID + "|" + this.firstName + "|" + this.lastName + "|" + this.address + "|" + this.birthdate + "\n");
             myWriter.close();
             //Will send a confirmation message if the file has been successfully written to
             System.out.println("Added person information to file.");
@@ -224,15 +228,29 @@ public class Person {
             Path filePath = Paths.get("person_data.txt");
             StringBuilder newContent = new StringBuilder();
             boolean found = false;
+            String[] addressParts = newAddress.split("\\|");
+
+            if (addressParts.length != 5) {
+                // If the format of address is wrong, return false
+                return false;
+            }
             
             for (String line : Files.readAllLines(filePath)) {
                 if (line.startsWith(this.personID + "|")) {
                     // update person's details while preserving demerit points and suspension status
                     String[] parts = line.split("\\|");
-                    String updatedLine = String.format("%s|%s|%s|%s|%s|%s|%s\n",
-                        newID, newFirstName, newLastName, newAddress, newBirthdate,
-                        parts.length > 5 ? parts[5] : "0",  // preserve demerit points
-                        parts.length > 6 ? parts[6] : "false" // preserve suspension status
+                    String updatedLine = String.format("%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s\n",
+                        newID,
+                        newFirstName,
+                        newLastName,
+                        addressParts[0], // Street Number
+                        addressParts[1], // Street
+                        addressParts[2], // City
+                        addressParts[3], // State
+                        addressParts[4], // Country
+                        newBirthdate,
+                        parts.length > 9 ? parts[9] : "0",     // demerit points
+                        parts.length > 10 ? parts[10] : "false" // isSuspended
                     );
                     newContent.append(updatedLine);
                     found = true;

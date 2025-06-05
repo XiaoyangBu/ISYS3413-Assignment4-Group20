@@ -66,10 +66,17 @@ public class Person {
             } else{
                 System.out.println("File exists:" + personDetails.getName());
             } 
-        } catch(IOException e){
-                System.out.println("An error occured creating the file.");
-                e.printStackTrace();
+            for (String line : Files.readAllLines(personDetails.toPath())) {
+                if (line.startsWith(id + "|")) {
+                    // If the id has already exist, return false, don't add new person
+                    System.out.println("PersonID already exists, not adding.");
+                    return false;
+                }
             }
+        } catch(IOException e){
+            System.out.println("An error occured creating the file.");
+            e.printStackTrace();
+        }
         //Use the try and catch again for writing the file
         try{
             //Append the person_data.txt file

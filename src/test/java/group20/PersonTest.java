@@ -15,13 +15,26 @@ public class PersonTest {
     void testAddPerson_ValidInput() {
         // Test Case 1: Check the function with valid inputs
         Person p = new Person();
-        boolean result = p.addPerson("Jane", "Smith", "24*dFt_yKB", "58|Highland Street|Melbourne|Victoria|Australia", "28-05-1993");
+        boolean result = p.addPerson("Jane", "Smith", "22*dFt_yKB", "58|Highland Street|Melbourne|Victoria|Australia", "28-05-1993");
         assertTrue(result);
     }
 
     @Test
+    void testAddPerson_InvalidSameIDInput() {
+        // Test Case 2: Check the function with Same ID
+        Person p1 = new Person();
+        boolean result1 = p1.addPerson("John", "Smith", "23*dFt_yKB", "59|Highland Street|Melbourne|Victoria|Australia", "29-05-1993");
+
+        Person p2 = new Person();
+        boolean result2 = p2.addPerson("Sam", "Thomas", "23*dFt_yKB", "316|England Street|Clayton|Victoria|Australia", "01-01-2000");
+        
+        assertTrue(result1);
+        assertFalse(result2);
+    }
+
+    @Test
     void testAddPerson_InvalidPersonID() {
-        // Test Case 2: Check the function with invalid personID
+        // Test Case 3: Check the function with invalid personID
 
         // Test Data 1
         Person p1 = new Person();
@@ -37,7 +50,7 @@ public class PersonTest {
 
     @Test
     void testAddPerson_InvalidAddressFormat() {
-        // Test Case 3: Check the function with invalid address format
+        // Test Case 4: Check the function with invalid address format
 
         // Test Data 1
         Person p1 = new Person();
@@ -45,7 +58,7 @@ public class PersonTest {
 
         // Test Data 2
         Person p2 = new Person();
-        boolean r2 = p2.addPerson("Jane", "Smith", "24*dFt_yKB", "58|Highland Street|3432|Melbourne|Victoria|Australia", "28-05-1993");
+        boolean r2 = p2.addPerson("Jane", "Smith", "25*dFt_yKB", "58|Highland Street|3432|Melbourne|Victoria|Australia", "28-05-1993");
 
         assertFalse(r1);
         assertFalse(r2);
@@ -53,24 +66,24 @@ public class PersonTest {
 
     @Test
     void testAddPerson_WrongState() {
-        // Test Case 4: Check the function with state other than Victoria
+        // Test Case 5: Check the function with state other than Victoria
 
         Person p = new Person();
-        boolean result = p.addPerson("Jane", "Smith", "24*dFt_yKB", "58|Highland Street|Melbourne|Queensland|Australia", "28-05-1993");
+        boolean result = p.addPerson("Jane", "Smith", "26*dFt_yKB", "58|Highland Street|Melbourne|Queensland|Australia", "28-05-1993");
         assertFalse(result);
     }
 
     @Test
     void testAddPerson_InvalidBirthdateFormat() {
-        // Test Case 5: Check the function with invalid format of birthdate
+        // Test Case 6: Check the function with invalid format of birthdate
 
         // Test Data 1
         Person p1 = new Person();
-        boolean r1 = p1.addPerson("Bob", "Smith", "32@jFl_yKB", "7|Highland Street|Melbourne|Victoria|Australia", "28/05/1993");
+        boolean r1 = p1.addPerson("Bob", "Smith", "27@jFl_yKB", "7|Highland Street|Melbourne|Victoria|Australia", "28/05/1993");
 
         // Test Data 2
         Person p2 = new Person();
-        boolean r2 = p2.addPerson("Jane", "Smith", "24*dFt_yKB", "58|Highland Street|Melbourne|Victoria|Australia", "1993-07-12");
+        boolean r2 = p2.addPerson("Jane", "Smith", "28*dFt_yKB", "58|Highland Street|Melbourne|Victoria|Australia", "1993-07-12");
 
         assertFalse(r1);
         assertFalse(r2);
@@ -78,11 +91,11 @@ public class PersonTest {
 
     @Test
     void testAddPerson_IllogicalBirthYear() {
-        // Test Case 6: Check the function with illogical birth year. (Too young or too old)
+        // Test Case 7: Check the function with illogical birth year. (Too young or too old)
 
         // Test Data 1: (Too old)
         Person p1 = new Person();
-        boolean r1 = p1.addPerson("Jane", "Smith", "24*dFt_yKB", "58|Highland Street|Melbourne|Victoria|Australia", "28-05-1800");
+        boolean r1 = p1.addPerson("Jane", "Smith", "29*dFt_yKB", "58|Highland Street|Melbourne|Victoria|Australia", "28-05-1800");
 
         // Test Data 2: (Too young)
         Person p2 = new Person();
@@ -100,7 +113,7 @@ public class PersonTest {
     void testValidUpdateForAdult() {
         // Test Case 1: valid update for an adult
         Person p = new Person();
-        p.addPerson("John", "Doe", "35*dFt_yKB", "10|High Street|Melbourne|Victoria|Australia", "15-05-1990");
+        p.addPerson("John", "Doe", "33*dFt_yKB", "10|High Street|Melbourne|Victoria|Australia", "15-05-1990");
         
         boolean result = p.updatePersonalDetails(
             "37*dFt_yKB",  // new ID
@@ -188,7 +201,7 @@ public class PersonTest {
         
         // Create and add a valid person
         Person p = new Person();
-        boolean added = p.addPerson("Jane", "Smith", "24*dFt_yKB", "58|Highland Street|Melbourne|Victoria|Australia", "28-05-1993");
+        boolean added = p.addPerson("John", "Bu", "42*dFt_yKB", "58|Highland Street|Melbourne|Victoria|Australia", "28-05-1993");
         assertTrue(added);
 
         // Set age under 21
@@ -213,7 +226,7 @@ public class PersonTest {
 
         // Create and add a valid person
         Person p = new Person();
-        boolean added = p.addPerson("Jane", "Smith", "24*dFt_yKB", "58|Highland Street|Melbourne|Victoria|Australia", "28-05-1993");
+        boolean added = p.addPerson("Sam", "Smith", "43*dFt_yKB", "58|Highland Street|Melbourne|Victoria|Australia", "28-05-1993");
         assertTrue(added);
 
         // Set age over 21
@@ -238,7 +251,7 @@ public class PersonTest {
 
         // Create and add a valid person
         Person p = new Person();
-        boolean added = p.addPerson("Jane", "Smith", "24*dFt_yKB", "58|Highland Street|Melbourne|Victoria|Australia", "28-05-1993");
+        boolean added = p.addPerson("Xiaoyang", "Bu", "44*dFt_yKB", "58|Highland Street|Melbourne|Victoria|Australia", "28-05-1993");
         assertTrue(added);
 
         // Set age under 21
@@ -263,7 +276,7 @@ public class PersonTest {
 
         // Create and add a valid person
         Person p = new Person();
-        boolean added = p.addPerson("Jane", "Smith", "24*dFt_yKB", "58|Highland Street|Melbourne|Victoria|Australia", "28-05-1993");
+        boolean added = p.addPerson("Lol", "Lmao", "45*dFt_yKB", "58|Highland Street|Melbourne|Victoria|Australia", "28-05-1993");
         assertTrue(added);
 
         // Set age under 21
@@ -288,7 +301,7 @@ public class PersonTest {
 
         // Create and add a valid person
         Person p = new Person();
-        boolean added = p.addPerson("Jane", "Smith", "24*dFt_yKB", "58|Highland Street|Melbourne|Victoria|Australia", "28-05-1993");
+        boolean added = p.addPerson("Dont", "Know", "46*dFt_yKB", "58|Highland Street|Melbourne|Victoria|Australia", "28-05-1993");
         assertTrue(added);
 
         // Test Data 1: Uses "/" instead of "-"
@@ -307,7 +320,7 @@ public class PersonTest {
 
         // Create and add a valid person
         Person p = new Person();
-        boolean added = p.addPerson("Jane", "Smith", "24*dFt_yKB", "58|Highland Street|Melbourne|Victoria|Australia", "28-05-1993");
+        boolean added = p.addPerson("Random", "Name", "47*dFt_yKB", "58|Highland Street|Melbourne|Victoria|Australia", "28-05-1993");
         assertTrue(added);
 
         // Test Data 1: Negative Numbers

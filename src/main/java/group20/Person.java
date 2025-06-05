@@ -85,7 +85,7 @@ public class Person {
             e.printStackTrace();
         }
         return true;
-    //TODO: This method adds information about a person to a TXT file.
+    //This method adds information about a person to a TXT file.
     //Condition 1: PersonID should be exactly 10 characters long;
     //the first two characters should be numbers between 2 and 9, there should be at least two special characters between characters 3 and 8,
     //and the last two characters should be upper case letters (A – Z). Example: "56s_d%&fAB"
